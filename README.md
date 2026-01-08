@@ -75,7 +75,7 @@ RPS (запросов в секунду): ~100 в пиковые часы
 <img width="495" height="963" alt="image" src="https://github.com/user-attachments/assets/06893783-9aaf-4d48-89f7-7fa26e95ea03" />
 
 # Контракты API
-Информация о контрактах доступна по ссылке [http://polystats.ddns.net/docs](https://polystats.ru/api/docs)
+Информация о контрактах доступна по ссылке https://polystats.ru/api/docs
 
 # Нефункциональные требования на время отклика
 Производительность:
