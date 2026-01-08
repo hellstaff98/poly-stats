@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from api import router as api_router
 from core.config import settings
 from core.models import db_helper, Base
-
+from fastapi.middleware.cors import CORSMiddleware
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -13,6 +13,7 @@ async def lifespan(app: FastAPI):
     yield
     # shutdown
     await db_helper.dispose()
+
 
 main_app = FastAPI(
     lifespan=lifespan,
@@ -22,6 +23,15 @@ main_app = FastAPI(
     redoc_url="/redoc",
     root_path=settings.api.prefix
 )
+
+main_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 main_app.include_router(api_router)
 
 @main_app.get('/')
