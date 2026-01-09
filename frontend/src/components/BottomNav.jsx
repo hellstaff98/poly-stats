@@ -1,7 +1,7 @@
 export default function BottomNav({ navigate, currentPage }) {
   const navItems = [
     { id: 'home', label: 'Главная' },
-    { id: 'profile', label: 'Профиль' }
+    { id: 'settings', label: 'Настройки' } // Изменено с 'profile' на 'settings'
   ]
   
   return (

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { authAPI, subjectsAPI, getAccessToken, checkAuth, clearAccessToken } from './api'
+import { authAPI, usersAPI, subjectsAPI, getAccessToken, checkAuth, clearAccessToken } from './api'
 
 export const useStore = create(
   persist(
@@ -16,23 +16,41 @@ export const useStore = create(
       isLoading: false,
       error: null,
       
-      initUserFromToken: async () => {
+      // Загрузить данные текущего пользователя
+      loadCurrentUser: async () => {
         const token = getAccessToken();
-        if (token) {
-          set({ isLoading: true });
-          try {
-            set({ 
-              user: {
-                id: 'temp',
-                email: '',
-                name: '',
-                groupName: ''
-              },
-              isLoading: false
-            });
-          } catch (error) {
-            set({ isLoading: false });
+        if (!token) {
+          console.log('Токен отсутствует, пользователь не авторизован');
+          return null;
+        }
+        
+        try {
+          console.log('Загрузка данных пользователя...');
+          const userData = await usersAPI.getCurrentUser();
+          console.log('Данные пользователя получены:', userData);
+          
+          set({ 
+            user: {
+              id: userData.id.toString(),
+              email: userData.email,
+              groupName: userData.group_name || 'Группа не указана',
+              groupId: userData.group_id,
+              isActive: userData.is_active,
+              isVerified: userData.is_verified
+            }
+          });
+          
+          return userData;
+        } catch (error) {
+          console.error('Ошибка загрузки данных пользователя:', error);
+          
+          // Если ошибка 401, очищаем токен
+          if (error.status === 401 || error.status_code === 401) {
+            clearAccessToken();
+            set({ user: null });
           }
+          
+          return null;
         }
       },
       
@@ -44,14 +62,10 @@ export const useStore = create(
           
           const loginData = await authAPI.login(email, password);
           
+          // После успешной регистрации загружаем данные пользователя
+          await get().loadCurrentUser();
+          
           set({
-            user: {
-              id: data.id.toString(),
-              email: data.email,
-              name: email.split('@')[0],
-              groupName: data.group_name,
-              groupId: data.group_id
-            },
             isLoading: false,
             subjects: [],
             tasks: []
@@ -82,13 +96,10 @@ export const useStore = create(
         try {
           const data = await authAPI.login(email, password);
           
+          // После успешного входа загружаем данные пользователя
+          await get().loadCurrentUser();
+          
           set({ 
-            user: { 
-              id: data.user_id?.toString() || Date.now().toString(), 
-              email, 
-              name: email.split('@')[0],
-              groupName: data.group_name || 'Не указана'
-            },
             subjects: [],
             tasks: [],
             isLoading: false
@@ -157,9 +168,7 @@ export const useStore = create(
             activities: data.activities || []
           };
           
-          // Не добавляем в локальное состояние, так как будем перезагружать
           set({ isLoading: false });
-          
           return newSubject;
         } catch (error) {
           console.error('Ошибка добавления предмета:', error);
@@ -184,7 +193,6 @@ export const useStore = create(
         set({ isLoading: true, error: null });
         
         try {
-          // Конвертируем subjectId в число для API
           const numericId = parseInt(subjectId);
           if (isNaN(numericId)) {
             throw new Error('Неверный ID предмета');
@@ -311,9 +319,7 @@ export const useStore = create(
         if (state?.settings?.theme === 'light') {
           document.documentElement.setAttribute('data-theme', 'light');
         }
-        if (checkAuth() && !state?.user) {
-          state?.initUserFromToken?.();
-        }
+        // Не загружаем пользователя здесь, это делается в app.jsx
       }
     }
   )

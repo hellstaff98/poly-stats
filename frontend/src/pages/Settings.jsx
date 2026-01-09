@@ -1,6 +1,6 @@
 import { useStore } from '../store'
 
-export function Profile({ navigate }) {
+export function Settings({ navigate }) {
   const { user, logout, toggleTheme, settings } = useStore()
   
   const handleLogout = async () => {
@@ -15,26 +15,31 @@ export function Profile({ navigate }) {
   return (
     <div style={styles.page}>
       <div style={styles.header}>
-        <h1 style={styles.title}>Профиль</h1>
+        <h1 style={styles.title}>Настройки</h1>
       </div>
       
       <div style={styles.content}>
         <div style={styles.card}>
-          <div style={styles.profileHeader}>
-            <div style={styles.profileInfo}>
-              <h2 style={styles.userName}>{user?.name}</h2>
-              <div style={styles.emailSection}>
-                <span style={styles.emailLabel}>Email:</span>
-                <span style={styles.emailValue}>{user?.email}</span>
-              </div>
-              <div style={styles.infoItem}>
-                <span style={styles.infoLabel}>Группа:</span>
-                <span style={styles.infoValue}>
-                  {user?.groupName || 'ИТ-101'}
-                </span>
-              </div>
+          <h3 style={styles.sectionTitle}>Учетная запись</h3>
+          
+          <div style={styles.settingItem}>
+            <div style={styles.settingInfo}>
+              <span style={styles.settingLabel}>Email</span>
+              <span style={styles.settingValue}>
+                {user?.email || 'Загрузка...'}
+              </span>
             </div>
           </div>
+          
+          <div style={styles.settingItem}>
+            <div style={styles.settingInfo}>
+              <span style={styles.settingLabel}>Группа</span>
+              <span style={styles.settingValue}>
+                {user?.groupName || 'Группа не указана'}
+              </span>
+            </div>
+          </div>
+          
         </div>
         
         <div style={styles.card}>
@@ -86,51 +91,6 @@ const styles = {
     padding: '1.5rem',
     marginBottom: '1rem',
     border: '1px solid var(--border)'
-  },
-  profileHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '1rem'
-  },
-  profileInfo: {
-    flex: 1
-  },
-  userName: {
-    margin: '0 0 1rem 0',
-    color: 'var(--text)',
-    fontSize: '1.2rem',
-    fontWeight: '400'
-  },
-  emailSection: {
-    marginBottom: '1rem',
-    paddingBottom: '1rem',
-    borderBottom: '1px solid var(--border)'
-  },
-  emailLabel: {
-    display: 'block',
-    color: 'var(--text-light)',
-    fontSize: '0.9rem',
-    marginBottom: '0.25rem'
-  },
-  emailValue: {
-    display: 'block',
-    color: 'var(--text)',
-    fontSize: '1rem',
-    fontFamily: 'monospace'
-  },
-  infoItem: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '0.5rem 0',
-    borderBottom: '1px solid var(--border)'
-  },
-  infoLabel: {
-    color: 'var(--text-light)',
-    fontSize: '0.9rem'
-  },
-  infoValue: {
-    color: 'var(--text)',
-    fontWeight: '500'
   },
   sectionTitle: {
     margin: '0 0 1rem 0',

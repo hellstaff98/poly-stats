@@ -28,6 +28,16 @@ export function Home({ navigate }) {
   const subjects = getSubjectsWithProgress();
   const stats = getTasksStats?.() || { completed: 0, total: 0, completionRate: 0 }
 
+  // Если пользователь еще не загружен
+  if (!user) {
+    return (
+      <div style={styles.loadingContainer}>
+        <div style={styles.loadingSpinner}></div>
+        <p style={styles.loadingText}>Загрузка данных пользователя...</p>
+      </div>
+    )
+  }
+
   const handleSubjectClick = (subjectId) => {
     navigate('discipline', subjectId)
   }
@@ -75,8 +85,8 @@ export function Home({ navigate }) {
       <div style={styles.header}>
         <div style={styles.userInfo}>
           <div style={styles.userDetails}>
-            <h2 style={styles.userName}>{user?.name}</h2>
-            <p style={styles.groupName}>{user?.groupName || 'ИТ-101'}</p>
+            <p style={styles.userEmail}>{user?.email || 'Загрузка...'}</p>
+            <p style={styles.groupName}>{user?.groupName || 'Группа не указана'}</p>
           </div>
         </div>
 
@@ -207,21 +217,23 @@ const styles = {
     flex: 1,
     minWidth: 0
   },
-  userName: {
+  userEmail: {
     margin: 0,
-    fontSize: '1.1rem',
+    fontSize: '1rem',
     fontWeight: '400',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
+    color: 'var(--text)'
   },
   groupName: {
     margin: '0.25rem 0 0 0',
     opacity: 0.7,
-    fontSize: '0.8rem',
+    fontSize: '0.9rem',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
+    color: 'var(--text)'
   },
   stats: {
     display: 'grid',
@@ -244,7 +256,8 @@ const styles = {
     fontWeight: '500',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
+    color: 'var(--text)'
   },
   statLabel: {
     display: 'block',
@@ -252,7 +265,8 @@ const styles = {
     opacity: 0.7,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
+    color: 'var(--text)'
   },
   content: {
     padding: '1rem'
@@ -374,5 +388,32 @@ const styles = {
     padding: '0.75rem 1.5rem',
     fontSize: '0.95rem',
     cursor: 'pointer'
+  },
+  loadingContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+    background: 'var(--background)'
+  },
+  loadingSpinner: {
+    width: '40px',
+    height: '40px',
+    border: '3px solid var(--border)',
+    borderTop: '3px solid var(--primary)',
+    borderRadius: '50%',
+    animation: 'spin 1s linear infinite',
+    marginBottom: '1rem'
   }
 }
+
+// Добавляем CSS для анимации
+const style = document.createElement('style')
+style.textContent = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`
+document.head.appendChild(style)

@@ -100,6 +100,15 @@ export const authAPI = {
   },
 };
 
+// API для пользователей
+export const usersAPI = {
+  // Получить данные текущего пользователя
+  getCurrentUser: async () => {
+    const response = await api.get('/v1/users/me');
+    return response;
+  },
+};
+
 // API для предметов
 export const subjectsAPI = {
   // Получить список предметов
