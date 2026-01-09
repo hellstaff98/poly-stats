@@ -2,7 +2,8 @@ import { render } from 'preact'
 import { App } from './app.jsx'
 import './index.css'
 
-const initializeTheme = () => {
+const initializeApp = async () => {
+  // Инициализируем тему
   const savedTheme = localStorage.getItem('poly-stats-storage')
   if (savedTheme) {
     try {
@@ -14,8 +15,10 @@ const initializeTheme = () => {
       console.error('Error parsing saved theme:', e)
     }
   }
+  
+  // Рендерим приложение
+  render(<App />, document.getElementById('app'))
 }
 
-initializeTheme()
-
-render(<App />, document.getElementById('app'))
+// Запускаем инициализацию
+initializeApp().catch(console.error)

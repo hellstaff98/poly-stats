@@ -3,14 +3,30 @@ import { useStore } from './store'
 import { Login } from './pages/Login'
 import { Home } from './pages/Home'
 import { DisciplinePage } from './pages/DisciplinePage'
-import { Profile } from './pages/Profile'
+import { Settings } from './pages/Settings'
 import BottomNav from './components/BottomNav'
 import './index.css'
 
 export function App() {
-  const { user, setOnlineStatus } = useStore()
+  const { user, setOnlineStatus, loadCurrentUser } = useStore()
   const [currentPage, setCurrentPage] = useState('home')
   const [disciplineId, setDisciplineId] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
+  
+  useEffect(() => {
+    // Загружаем данные пользователя при монтировании
+    const initUser = async () => {
+      try {
+        await loadCurrentUser()
+      } catch (error) {
+        console.error('Ошибка загрузки пользователя:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    
+    initUser()
+  }, [loadCurrentUser])
   
   const navigate = (page, id = '') => {
     setCurrentPage(page)
@@ -36,8 +52,8 @@ export function App() {
         const id = path.split('/discipline/')[1]
         setCurrentPage('discipline')
         setDisciplineId(id)
-      } else if (path === '/profile') {
-        setCurrentPage('profile')
+      } else if (path === '/settings') {
+        setCurrentPage('settings')
       } else if (path === '/login') {
         setCurrentPage('login')
       } else {
@@ -53,8 +69,8 @@ export function App() {
       const id = initialPath.split('/discipline/')[1]
       setCurrentPage('discipline')
       setDisciplineId(id)
-    } else if (initialPath === '/profile') {
-      setCurrentPage('profile')
+    } else if (initialPath === '/settings') {
+      setCurrentPage('settings')
     } else if (initialPath === '/login') {
       setCurrentPage('login')
     }
@@ -80,6 +96,17 @@ export function App() {
     }
   }, [setOnlineStatus])
   
+  // Показываем загрузку
+  if (isLoading) {
+    return (
+      <div style={styles.loadingContainer}>
+        <div style={styles.loadingSpinner}></div>
+        <p style={styles.loadingText}>Загрузка...</p>
+      </div>
+    )
+  }
+  
+  // Если пользователь не авторизован, показываем страницу логина
   if (!user) {
     return <Login navigate={navigate} />
   }
@@ -88,8 +115,8 @@ export function App() {
     switch (currentPage) {
       case 'discipline':
         return disciplineId ? <DisciplinePage disciplineId={disciplineId} navigate={navigate} /> : <Home navigate={navigate} />
-      case 'profile':
-        return <Profile navigate={navigate} />
+      case 'settings':
+        return <Settings navigate={navigate} />
       default:
         return <Home navigate={navigate} />
     }
@@ -108,3 +135,37 @@ export function App() {
     </div>
   )
 }
+
+const styles = {
+  loadingContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+    background: 'var(--background)'
+  },
+  loadingSpinner: {
+    width: '40px',
+    height: '40px',
+    border: '3px solid var(--border)',
+    borderTop: '3px solid var(--primary)',
+    borderRadius: '50%',
+    animation: 'spin 1s linear infinite',
+    marginBottom: '1rem'
+  },
+  loadingText: {
+    color: 'var(--text)',
+    fontSize: '0.9rem'
+  }
+}
+
+// Добавляем CSS для анимации
+const style = document.createElement('style')
+style.textContent = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`
+document.head.appendChild(style)
