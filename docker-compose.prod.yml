@@ -20,6 +20,13 @@ services:
         condition: service_healthy
     env_file: .env
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    volumes:
+      - static_build:/app/dist
+
   nginx:
     image: nginx:latest
     restart: always
@@ -31,8 +38,10 @@ services:
       - ./frontend:/usr/share/nginx/html:ro
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
+      - static_build:/var/www/frontend
     depends_on:
       - app
+      - frontend
 
   certbot:
     image: certbot/certbot
@@ -43,3 +52,4 @@ services:
 
 volumes:
   postgres_data:
+  static_build:
