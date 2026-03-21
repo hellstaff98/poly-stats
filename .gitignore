@@ -220,3 +220,5 @@ certbot/www/
 certbot/logs/
 
 *.pem
+
+node_modules/
