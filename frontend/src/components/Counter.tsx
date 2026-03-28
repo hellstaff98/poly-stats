@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './Counter.scss'
+import classes from './Counter.module.scss'
 
 export const Counter: React.ComponentType = () => {
 
@@ -12,7 +12,7 @@ export const Counter: React.ComponentType = () => {
     return (
         <div>
             <h1>{counterValue}</h1>
-           <button onClick={handleClick}>Add</button>
+            <button className={classes.btn} onClick={handleClick}>Add</button>
         </div>
     );
 };
