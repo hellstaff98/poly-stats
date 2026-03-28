@@ -4,7 +4,7 @@ import {Counter} from "../../components/Counter";
 const CounterPage = () => {
     return (
         <div>
-            Counter Page
+            Операционные системы
             <Counter/>
         </div>
     );
