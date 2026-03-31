@@ -1,6 +1,6 @@
-@use "variables/global" as *;
+@use "../../styles/variables/global" as *;
 @use "reset" as *;
-@use "themes/dark" as *;
+@use "../../styles/themes/dark" as *;
 //@use "themes/normal" as *;
 
 .app {
