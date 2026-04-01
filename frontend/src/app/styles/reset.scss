@@ -9,4 +9,11 @@ textarea,
 select {
   margin: 0;
   font: inherit;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
+input {
+  outline: none;
 }

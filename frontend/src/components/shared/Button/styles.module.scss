@@ -1,0 +1,20 @@
+.buttonCustom {
+  background-color: transparent;
+  font: var(--font-s);
+  padding: 0.5rem 3rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.default {
+  border: solid 1px;
+  border-color: var(--secondary-color);
+  border-radius: 18px;
+  color: var(--primary-color);
+  letter-spacing: 1px;
+}
+
+.transparent {
+  border: none;
+  color: var(--text-covered);
+}

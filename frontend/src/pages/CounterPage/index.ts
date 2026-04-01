@@ -1,1 +1,0 @@
-export { CounterPageAsync as CounterPage } from './CounterPage.async';

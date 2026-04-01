@@ -1,7 +1,5 @@
 import React, { Suspense } from 'react';
 import {Route, Routes } from "react-router-dom";
-import {MainPageAsync} from "../../pages/MainPage/MainPage.async";
-import {CounterPageAsync} from "../../pages/CounterPage/CounterPage.async";
 import {routeConfig} from "./routeConfig";
 
 const AppRouter = () => {
