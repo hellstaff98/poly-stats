@@ -8,4 +8,5 @@ export interface ButtonProps {
     onPress: () => void;
     style?: CSSProperties;
     variant?: ButtonVariants;
+    isLoading?: boolean;
 }
