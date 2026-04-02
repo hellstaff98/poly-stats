@@ -4,7 +4,10 @@
     "baseUrl": ".",
     "paths": {
       "@components/*" : ["./src/components/*"],
-      "@assets/*" : ["./src/assets/*"]
+      "@assets/*" : ["./src/assets/*"],
+      "@models/*" : ["./src/models/*"],
+      "@services/*" : ["./src/services/*"],
+      "@api/*" : ["./src/app/api/*"],
     },
     "noImplicitAny": true,
     "module": "ESNext",

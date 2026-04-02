@@ -9,6 +9,9 @@ export function buildResolvers(options: BuildOptions): webpack.ResolveOptions {
         alias: {
             '@components': [options.paths.src, 'components'],
             '@assets': [options.paths.src, 'assets'],
+            '@models': [options.paths.src, 'models'],
+            '@services' : [options.paths.src, 'services'],
+            '@api' : [options.paths.src, 'app', 'api']
         },
     }
 }
