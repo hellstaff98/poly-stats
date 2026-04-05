@@ -11,7 +11,8 @@ export function buildResolvers(options: BuildOptions): webpack.ResolveOptions {
             '@assets': [options.paths.src, 'assets'],
             '@models': [options.paths.src, 'models'],
             '@services' : [options.paths.src, 'services'],
-            '@api' : [options.paths.src, 'app/api']
+            '@api' : [options.paths.src, 'app/api'],
+            '@pages': [options.paths.src, 'pages'],
         },
     }
 }

@@ -1,9 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import AppRouter from "./router/AppRouter";
 import './styles/index.scss';
+import {useAuthStore} from "../stores/useAuthStore";
+
+
 
 const App = () => {
+
+    const checkAuth = useAuthStore(state => state.checkAuth);
+
+    useEffect(() => {
+        (async () => {
+            if (localStorage.getItem('token')) {
+                await checkAuth();
+            }
+        })();
+    },[])
+
     return (
         <div className="app dark">
             <ToastContainer

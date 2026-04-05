@@ -6,7 +6,12 @@ import {RegisterResponse} from "@models/response/RegisterResponse";
 
 export default class AuthService {
     static async login(email: string, password: string): Promise<AxiosResponse<LoginResponse>> {
-        return $api.post<LoginResponse>('v1/auth/login', {email, password})
+        const params = new URLSearchParams();
+        params.append('username', email)
+        params.append('password', password)
+        return $api.post<LoginResponse>(
+            'v1/auth/login',
+            params)
     }
 
     static async register(email: string, password: string, group_name: string): Promise<AxiosResponse<RegisterResponse>> {

@@ -3,23 +3,27 @@ import Title from "@components/shared/Title"
 import Line from '@assets/icons/registration/Line.svg'
 
 import styles from './styles.module.scss'
-import RegistrationForm from "@components/auth/RegistrationForm";
 import {useAuthStore} from "../../stores/useAuthStore";
 import {toast} from "react-toastify";
+import LoginForm from "@components/auth/LoginForm";
 import {AppRoutes} from "../../app/router/routeConfig";
 
 
-const RegistrationPage = () => {
+const LoginPage = () => {
 
-    const register = useAuthStore(state => state.register);
+    const login = useAuthStore(state => state.login);
     const isLoading = useAuthStore(state => state.isLoading);
 
-    const handleRegistrationConfirm = async (email: string, password: string, group_name: string) => {
+    const handleLoginConfirm = async (email: string, password: string) => {
         try {
-            await register(email, password, group_name);
-            toast.success("Регистрация прошла успешно");
+            await login(email, password);
+            toast.success("Вход прошел успешно");
         } catch (e) {
-            toast.error("Ошибка при регистрации");
+            if (e.response.status === 400) {
+                toast.error("Неверные данные");
+            } else {
+                toast.error("Ошибка при входе");
+            }
         }
     }
 
@@ -29,9 +33,9 @@ const RegistrationPage = () => {
                 <Title variant='primary'>POLYSTATS</Title>
                 <Line style={{ marginRight: 4, justifySelf: 'center', alignSelf: 'center' }}/>
             </div>
-                <RegistrationForm isLoading={isLoading} onConfirm={(email, password, group_name) => handleRegistrationConfirm(email, password, group_name)} loginLink={AppRoutes.LOGIN}/>
+            <LoginForm onConfirm={handleLoginConfirm} registrationLink={AppRoutes.REGISTRATION} isLoading={isLoading}/>
         </div>
     );
 };
 
-export default RegistrationPage;
+export default LoginPage;

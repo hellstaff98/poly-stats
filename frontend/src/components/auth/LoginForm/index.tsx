@@ -2,14 +2,13 @@ import React, {FC, useState} from 'react';
 import UserInput from "@components/shared/UserInput";
 import styles from "./styles.module.scss";
 import Button from "@components/shared/Button";
-import {RegistrationFormProps} from "./types";
+import {LoginFormProps} from "./types";
 import {Link} from "react-router-dom";
 
-const RegistrationForm: FC<RegistrationFormProps> = ({ onConfirm, loginLink, isLoading }) => {
+const LoginForm: FC<LoginFormProps> = ({ onConfirm, registrationLink, isLoading }) => {
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [groupName, setGroupName] = useState<string>('');
 
     return (
         <div className={styles.mainContainer}>
@@ -28,18 +27,11 @@ const RegistrationForm: FC<RegistrationFormProps> = ({ onConfirm, loginLink, isL
                     type="password"
                     placeholder="Придумайте пароль"
                 />
-                <UserInput
-                    value={groupName}
-                    onChange={(e) => setGroupName(e.target.value)}
-                    name="group-name"
-                    type="text"
-                    placeholder="Введите номер учебной группы"
-                />
             </div>
-            <Button label={"Продолжить"} onPress={() => onConfirm(email, password, groupName)} isLoading={isLoading}/>
-            <Link to={`/${loginLink}`} className={styles.loginLink}>Уже есть аккаунт? Войти</Link>
+            <Button label={"Продолжить"} onPress={() => onConfirm(email, password)} isLoading={isLoading}/>
+            <Link to={`/${registrationLink}`} className={styles.loginLink}>Еще нет аккаунта? Регистрация</Link>
         </div>
     );
 };
 
-export default RegistrationForm;
+export default LoginForm;

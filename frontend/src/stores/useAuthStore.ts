@@ -1,6 +1,8 @@
 import {create} from "zustand";
 import {persist} from "zustand/middleware/persist";
 import AuthService from "@services/AuthService";
+import {AxiosError} from "axios";
+import UserService from "@services/UserService";
 
 
 interface AuthState {
@@ -11,13 +13,15 @@ interface AuthState {
 
     login: (email: string, password: string) => Promise<void>;
     register: (email: string, password: string, group_name: string) => Promise<void>;
+    logout: () => Promise<void>;
+    checkAuth: () => Promise<void>;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>((set, get) => ({
     userId: null,
     email: null,
     isAuth: false,
-    isLoading: false,
+    isLoading: !!localStorage.getItem('token'),
 
     async login(email: string, password: string) {
         try {
@@ -27,6 +31,7 @@ export const useAuthStore = create<AuthState>((set) => ({
             set({email: email, isAuth: true});
         } catch (e) {
             console.log(e)
+            throw e
         } finally {
             set({isLoading: false});
         }
@@ -34,16 +39,45 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     async register(email: string, password: string, group_name: string) {
         try {
-            set({isLoading: true});
-            console.log(email, password, group_name);
+            set({ isLoading: true });
             const { data } = await AuthService.register(email, password, group_name);
-            console.log(data);
             set({ userId: data.id })
         } catch (e) {
             console.log(e);
             throw e;
         } finally {
-            set({isLoading: false});
+            set({ isLoading: false });
+        }
+    },
+
+    async logout() {
+        try {
+            set({ isLoading: true });
+            await AuthService.logout();
+            localStorage.removeItem('token');
+            set({ isAuth: false });
+            set({ userId: null, email: null });
+        } catch (e) {
+            console.log(e);
+            throw e;
+        } finally {
+            set({ isLoading: false });
+        }
+    },
+
+    async checkAuth() {
+        try {
+            set({ isLoading: true });
+            const response = await UserService.userInfo();
+            console.log(response.status);
+            set({   isAuth: true   });
+        } catch (e) {
+            if (e.response.status === 401) {
+                set({ isAuth: false });
+            }
+        } finally {
+            set({ isLoading: false });
+            console.log("IS AUTH FROM STORE", get().isAuth)
         }
     }
 
