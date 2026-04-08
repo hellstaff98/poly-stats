@@ -1,6 +1,6 @@
 import {CSSProperties, ReactNode} from "react";
 
-type TitleVariant = 'default' | 'primary'
+type TitleVariant = 'default' | 'primary' | 'secondary';
 
 export interface TitleProps {
     children: ReactNode;

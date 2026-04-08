@@ -1,14 +1,22 @@
 .title {
   text-align: center;
+  font-family: var(--font-family-main), serif;
+  color: var(--primary-color);
 }
 
 .default {
-  color: var(--primary-color);
-
+  font: var(--font-m);
+  font-size: 2rem;
+  font-weight: 500;
 }
 
 .primary {
   font: var(--font-l);
-  color: var(--secondary-color);
+  color: var(--accent-color);
   letter-spacing: 12%;
+}
+
+.secondary {
+  font-size: 1.1rem;
+  font-weight: 500;
 }

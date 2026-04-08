@@ -1,6 +1,7 @@
 import { RouteProps } from "react-router-dom"
 import {RegistrationPage} from "@pages/RegistrationPage"
 import {LoginPage} from "@pages/LoginPage";
+import {MainPage} from "@pages/MainPage";
 
 
 export enum AppRoutes {
@@ -32,7 +33,7 @@ export const routeConfig: Record<AppRoutes, CustomRouteProps> = {
     },
     [AppRoutes.MAIN] : {
         path: RoutePath.main,
-        element: <div/>,
+        element: <MainPage/>,
         authRequired: true,
     }
 }
