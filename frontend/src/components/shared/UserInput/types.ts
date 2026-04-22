@@ -1,4 +1,4 @@
-import {ChangeEvent, CSSProperties, HTMLInputTypeAttribute, InputHTMLAttributes} from "react";
+import { ChangeEvent, CSSProperties, HTMLInputTypeAttribute } from 'react';
 
 export interface UserInputProps {
     value?: string;
@@ -8,4 +8,6 @@ export interface UserInputProps {
     placeholder: string;
     style?: CSSProperties;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+    className?: string;
+    min?: number;
 }

@@ -1,22 +1,28 @@
 .title {
-  text-align: center;
-  font-family: var(--font-family-main), serif;
-  color: var(--primary-color);
+    text-align: center;
+    font-family: var(--font-family-main), serif;
+    color: var(--primary-color);
 }
 
 .default {
-  font: var(--font-m);
-  font-size: 2rem;
-  font-weight: 500;
+    font: var(--font-m);
+    font-size: 2rem;
+    font-weight: 500;
 }
 
 .primary {
-  font: var(--font-l);
-  color: var(--accent-color);
-  letter-spacing: 12%;
+    font: var(--font-l);
+    color: var(--accent-color);
+    letter-spacing: 12%;
 }
 
 .secondary {
-  font-size: 1.1rem;
-  font-weight: 500;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.covered {
+    font-size: 1.1rem;
+    color: var(--text-covered);
+    font-weight: 400;
 }

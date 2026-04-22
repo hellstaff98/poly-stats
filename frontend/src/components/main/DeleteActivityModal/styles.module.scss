@@ -1,0 +1,20 @@
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-m);
+}
+
+.description {
+    color: #a0a0a0;
+    margin-top: var(--spacing-s);
+    margin-bottom: 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    font-family: var(--font-family-main), serif;
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}

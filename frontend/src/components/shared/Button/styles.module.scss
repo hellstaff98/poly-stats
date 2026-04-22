@@ -1,25 +1,44 @@
 .buttonCustom {
-  background-color: transparent;
-  outline: none;
-  padding: 0.5rem 3rem;
-  font-weight: 500;
-  cursor: pointer;
-  max-height: 2.5rem;
+    background-color: transparent;
+    outline: none;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    min-height: 2.5rem;
+    width: 100%;
 }
 
 .default {
-  font: var(--font-m);
-  font-weight: 500;
-  border: solid 1px;
-  border-color: var(--accent-color);
-  border-radius: 18px;
-  color: var(--primary-color);
-  letter-spacing: 1px;
+    font: var(--font-m);
+    font-weight: 500;
+    border: solid 1px;
+    border-color: var(--accent-color);
+    border-radius: 18px;
+    color: var(--primary-color);
+    letter-spacing: 1px;
 }
 
 .transparent {
-  font: var(--font-s);
-  font-weight: 500;
-  border: none;
-  color: var(--text-covered);
+    font: var(--font-s);
+    font-weight: 500;
+    border: none;
+    color: var(--text-covered);
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.iconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.label {
+    flex-grow: 1;
+    text-align: center;
 }

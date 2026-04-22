@@ -5,10 +5,12 @@ import { SubjectCardProps } from '@components/main/SubjectCard/types';
 import ArrowForward from '@assets/icons/main/arrow-forward.svg';
 import { nameShortener } from '../../../utils/nameShortener';
 import ProgressBar from '@components/shared/ProgressBar';
+import { Link } from 'react-router-dom';
+import { routeConfig } from '../../../app/router/routeConfig';
 
-const SubjectCard: FC<SubjectCardProps> = ({ subject }) => {
+const SubjectCard: FC<SubjectCardProps> = ({ subject, onClick }) => {
   return (
-    <div className={styles.mainContainer}>
+    <Link to={`${routeConfig.subjects.path}/${subject.id}`} className={styles.mainContainer}>
       <div className={styles.header}>
         <Title variant="secondary" style={{ textAlign: 'left', maxWidth: '85%' }}>
           {nameShortener(subject.name)}
@@ -34,7 +36,7 @@ const SubjectCard: FC<SubjectCardProps> = ({ subject }) => {
           </p>
         )}
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import AppRouter from "./router/AppRouter";
+import React, { useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
+import AppRouter from './router/AppRouter';
 import './styles/index.scss';
-import {useAuthStore} from "../stores/useAuthStore";
+import { useAuthStore } from '../stores/useAuthStore';
+import Modal from 'react-modal';
 
-
+Modal.setAppElement(document.getElementById('root'));
 
 const App = () => {
-
-    const checkAuth = useAuthStore(state => state.checkAuth);
+    const checkAuth = useAuthStore((state) => state.checkAuth);
 
     useEffect(() => {
         (async () => {
@@ -16,17 +16,17 @@ const App = () => {
                 await checkAuth();
             }
         })();
-    },[])
+    }, []);
 
     return (
         <div className="app dark">
             <ToastContainer
-                position={"top-center"}
+                position={'top-center'}
                 hideProgressBar={true}
                 theme={'dark'}
                 autoClose={1000}
             />
-            <AppRouter/>
+            <AppRouter />
         </div>
     );
 };
