@@ -1,0 +1,34 @@
+.mainContainer {
+    margin: 2px 2px;
+    width: 70%;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--spacing-m);
+}
+
+.line {
+    //display: flex;
+    height: 12px;
+    width: 70%;
+    //margin-left: var(--spacing-m);
+    background-color: var(--border-color);
+    border-radius: 4px;
+}
+
+.filledLine {
+    height: 12px;
+    background-color: var(--accent-color);
+    border-radius: inherit;
+    transition: all 0.2s ease;
+}
+
+.label {
+    font-family: var(--font-family-main), serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-covered);
+    min-width: 55px;
+    letter-spacing: -3%;
+}
