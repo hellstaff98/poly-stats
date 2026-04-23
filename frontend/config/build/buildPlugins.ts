@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import { BuildOptions } from './types/config';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import WorkboxWebpackPlugin from 'workbox-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
 
 export function buildPlugins({ paths }: BuildOptions): webpack.WebpackPluginInstance[] {
     return [
@@ -25,6 +26,15 @@ export function buildPlugins({ paths }: BuildOptions): webpack.WebpackPluginInst
             navigateFallback: '/index.html',
 
             navigateFallbackDenylist: [/^\/api/],
+        }),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: paths.public,
+                    globOptions: { ignore: ['*/index.html'] },
+                    to: paths.output,
+                },
+            ],
         }),
     ];
 }
