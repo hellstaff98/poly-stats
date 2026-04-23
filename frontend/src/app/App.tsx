@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { Flip, ToastContainer } from 'react-toastify';
 import AppRouter from './router/AppRouter';
 import './styles/index.scss';
 import { useAuthStore } from '../stores/useAuthStore';
@@ -25,6 +25,7 @@ const App = () => {
                 hideProgressBar={true}
                 theme={'dark'}
                 autoClose={1000}
+                transition={Flip}
             />
             <AppRouter />
         </div>

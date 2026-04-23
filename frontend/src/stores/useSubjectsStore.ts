@@ -28,7 +28,6 @@ export const useSubjectsStore = create<SubjectsState>((set, get) => ({
             set({ isLoading: true });
             const { data } = await SubjectsService.getSubjectsList();
             set({ subjectsList: data });
-            console.log(data);
         } catch (e) {
             console.error(e);
             throw e;
@@ -66,7 +65,6 @@ export const useSubjectsStore = create<SubjectsState>((set, get) => ({
     async incrementActivityProgress(activityId: ActivityID) {
         try {
             const { data } = await SubjectsService.incrementActivityProgress(activityId);
-            console.log('Incremented', data);
             set({
                 currentSubject: {
                     ...get().currentSubject,
@@ -78,7 +76,6 @@ export const useSubjectsStore = create<SubjectsState>((set, get) => ({
                     }),
                 },
             });
-            console.log('RESULT', get().currentSubject);
         } catch (error) {
             console.error(error);
             throw error;
@@ -88,7 +85,6 @@ export const useSubjectsStore = create<SubjectsState>((set, get) => ({
     async decrementActivityProgress(activityId: ActivityID) {
         try {
             const { data } = await SubjectsService.decrementActivityProgress(activityId);
-            console.log('Decremented', data);
             set({
                 currentSubject: {
                     ...get().currentSubject,
@@ -100,7 +96,6 @@ export const useSubjectsStore = create<SubjectsState>((set, get) => ({
                     }),
                 },
             });
-            console.log('RESULT', get().currentSubject);
         } catch (error) {
             console.error(error);
             throw error;

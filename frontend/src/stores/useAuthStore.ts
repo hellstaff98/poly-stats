@@ -1,9 +1,6 @@
-import {create} from "zustand";
-import {persist} from "zustand/middleware/persist";
-import AuthService from "@services/AuthService";
-import {AxiosError} from "axios";
-import UserService from "@services/UserService";
-
+import { create } from 'zustand';
+import AuthService from '@services/AuthService';
+import UserService from '@services/UserService';
 
 interface AuthState {
     isAuth: boolean;
@@ -25,15 +22,14 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
     async login(email: string, password: string) {
         try {
-            set({isLoading: true});
+            set({ isLoading: true });
             const { data } = await AuthService.login(email, password);
             localStorage.setItem('token', data.access_token);
-            set({email: email, isAuth: true});
+            set({ email: email, isAuth: true });
         } catch (e) {
-            console.log(e)
-            throw e
+            throw e;
         } finally {
-            set({isLoading: false});
+            set({ isLoading: false });
         }
     },
 
@@ -41,9 +37,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         try {
             set({ isLoading: true });
             const { data } = await AuthService.register(email, password, group_name);
-            set({ userId: data.id })
+            set({ userId: data.id });
         } catch (e) {
-            console.log(e);
             throw e;
         } finally {
             set({ isLoading: false });
@@ -58,7 +53,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
             set({ isAuth: false });
             set({ userId: null, email: null });
         } catch (e) {
-            console.log(e);
             throw e;
         } finally {
             set({ isLoading: false });
@@ -69,16 +63,13 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         try {
             set({ isLoading: true });
             const response = await UserService.userInfo();
-            console.log(response.status);
-            set({   isAuth: true   });
+            set({ isAuth: true });
         } catch (e) {
             if (e.response.status === 401) {
                 set({ isAuth: false });
             }
         } finally {
             set({ isLoading: false });
-            console.log("IS AUTH FROM STORE", get().isAuth)
         }
-    }
-
-}))
+    },
+}));
