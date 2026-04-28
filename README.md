@@ -141,33 +141,12 @@ POST-запросы (запись): < 200 мс для 95% запросов
 
 # Кодирование и отладка
 ## Стек используемых технологий:
-### Backend
-Python - основной язык программирования серверной части
-FastAPI - современный асинхронный веб-фреймворк для создания API
-Asyncpg - асинхронный драйвер для работы с PostgreSQL
-SQLAlchemy - ORM для работы с базой данных
-Alembic - система миграций базы данных
-Pydantic - валидация данных и сериализация
-PostgreSQL - реляционная база данных
-JWT (JSON Web Tokens) - аутентификация пользователей
-Uvicorn - ASGI-сервер для запуска FastAPI приложения
-Swagger/OpenAPI - автоматическая документация API
-### Frontend
-TypeScript - язык программирования с статической типизацией
-React - JavaScript-библиотека для разработки пользовательских интерфейсов
-Vite - инструмент для эффективной сборки проектов на React
-React Router - маршрутизация в одностраничном приложении
-Axios - HTTP-клиент для взаимодействия с API
-Tailwind CSS - CSS-фреймворк для стилизации
-React Query/TanStack Query - управление состоянием и кэширование API-запросо
-### Инфраструктура и инструменты
-Docker - контейнеризация приложения
-Docker Compose - оркестрация многоконтейнерных приложений
-PostgreSQL - основное хранилище данных
-Git - система контроля версий
-GitHub Actions - CI/CD для автоматического тестирования и деплоя
-pytest - фреймворк для unit-тестирования
-React Testing Library - тестирование React-компонентов
+# Backend
+Python, FastAPI, Asyncpg, SQLAlchemy, PostgreSQL, Uvicorn, Swagger
+# Frontend
+TypeScript, React, Webpack, SCSS-modules, Zustand
+# Инфраструктура 
+Docker, Docker Compose, pytest
 
 ## Тестирование
 Запуск тестов:
