@@ -141,11 +141,11 @@ POST-запросы (запись): < 200 мс для 95% запросов
 
 # Кодирование и отладка
 ## Стек используемых технологий:
-# Backend
+### Backend
 Python, FastAPI, Asyncpg, SQLAlchemy, PostgreSQL, Uvicorn, Swagger
-# Frontend
+### Frontend
 TypeScript, React, Webpack, SCSS-modules, Zustand
-# Инфраструктура 
+### Инфраструктура 
 Docker, Docker Compose, pytest
 
 ## Тестирование
